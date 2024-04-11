@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox prefHeight="572" prefWidth="845" style="-fx-background-radius: 20,0,0,0;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="573.0" prefWidth="422.5" style="-fx-background-color: FFFDFD;">
+         <children>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Text layoutX="106.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign in to dashboard" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="78.0" fitWidth="119.0" layoutX="165.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/img/logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane prefHeight="221.0" prefWidth="422.0">
+               <children>
+                  <TextField layoutX="59.0" layoutY="56.0" prefHeight="40.0" prefWidth="282.0" promptText="Text your phone number" style="-fx-background-color: &quot;27252D&quot;; -fx-background-radius: 8, 0, 0, 0; -fx-text-fill: &quot;#fff&quot;; -fx-font-weight: 900;" />
+                  <Text layoutX="59.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: 900;" text="Phone number" />
+                  <Text layoutX="59.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: 900;" text="Password" />
+                  <CheckBox layoutX="59.0" layoutY="181.0" mnemonicParsing="false" style="-fx-font-weight: 900;" text="Remember me" />
+                  <Hyperlink layoutX="225.0" layoutY="180.0" prefHeight="26.0" prefWidth="131.0" style="-fx-font-weight: 900;" text="Forgot Password?" textFill="#0085ff">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Hyperlink>
+                  <PasswordField layoutX="59.0" layoutY="133.0" prefHeight="40.0" prefWidth="282.0" promptText="Text your password" style="-fx-background-color: &quot;27252D&quot;; -fx-background-radius: 8,0,0,0; -fx-text-fill: &quot;fff&quot;; -fx-font-weight: 900;" />
+               </children>
+            </Pane>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button layoutX="62.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="282.0" style="-fx-background-radius: 8, 0, 0, 0; -fx-background-color: &quot;#3900B2&quot;; -fx-font-weight: 900;" text="Login" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+      <VBox prefHeight="572" prefWidth="422.5" style="-fx-background-color: &quot;0D1749&quot;;">
+         <children>
+            <Pane prefHeight="592.0" prefWidth="423.0">
+               <children>
+                  <Text fill="WHITE" layoutX="102.0" layoutY="255.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: 900;" text="Join our" textAlignment="CENTER">
+                     <font>
+                        <Font name="Calibri" size="36.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="102.0" layoutY="291.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: 900;" text="net community" textAlignment="CENTER">
+                     <font>
+                        <Font name="Calibri" size="36.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="102.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: 900;" text="The best for your gaming expierence" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+   </children>
+</HBox>
