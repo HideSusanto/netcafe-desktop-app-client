@@ -41,7 +41,7 @@ public class App extends Application {
         Scene scene = new Scene(loadFXML("client_dashboard"), 1440, 1024);
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.initStyle(StageStyle.UNDECORATED);
+        //stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
     }
 
