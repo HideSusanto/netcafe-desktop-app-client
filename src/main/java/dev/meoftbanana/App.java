@@ -26,8 +26,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Rectangle2D screenBounds = Screen.getPrimary().getBounds();
-        System.out.println(screenBounds.getWidth());
-        // Hiển thị giao diện
+
         Parent root = loadFXML("client_login_page");
         Scene scene = new Scene(root);
 

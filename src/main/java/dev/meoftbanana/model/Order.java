@@ -10,8 +10,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order {
-    private Long orderId;
+    private int orderId;
     private String timeCreated;
     private String orderStatus;
+    private Double total;
    
 }

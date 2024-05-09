@@ -36,6 +36,7 @@ import dev.meoftbanana.model.OrderItem;
 import dev.meoftbanana.model.Product;
 import dev.meoftbanana.model.ProductCategory;
 import dev.meoftbanana.module.TimeHandle;
+import io.github.palexdev.virtualizedfx.controls.behavior.actions.EventAction;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -92,9 +93,12 @@ public class DashBoardController implements Initializable {
     int minutesUsed = 0;
     int hoursRemains;
     int minutesRemains;
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
+    public static Stage stage;
+    public static Scene scene;
+    public static Parent root;
+
+    @FXML
+    private Pane rootPane;
     @FXML
     private Button FoodsNavigationButton;
     @FXML
@@ -209,6 +213,12 @@ public class DashBoardController implements Initializable {
             loadTotals();
 
         });
+        //orders.addListener((ListChangeListener<Order>) change -> {
+            // Gọi displayOrderItems() mỗi khi cart thay đổi
+            //HistoryGridPane.getChildren().clear();
+            //displayOrders();
+
+        //});
         needToLoad.addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -257,8 +267,15 @@ public class DashBoardController implements Initializable {
     }
 
     @FXML
+    private void loadOutOfTimeModal() throws IOException {
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("outoftime.fxml"));
+        rootPane.getChildren().setAll(pane);
+    }
+
+    @FXML
     private void logoutClick(ActionEvent event) throws IOException {
         logout();
+        
         User.userName = "";
         User.balance = null;
         User.userId = null;
@@ -278,6 +295,9 @@ public class DashBoardController implements Initializable {
         double y = (screenHeight - windowHeight) / 2;
         CartGridPane.getChildren().clear();
         cart.clear();
+        //HistoryGridPane.getChildren().clear();
+        //orders.clear();
+
         // Đặt vị trí của cửa sổ
         stage.setX(x);
         stage.setY(y);
@@ -465,7 +485,6 @@ public class DashBoardController implements Initializable {
             // JSONObject jsonResponse = new JSONObject(response.toString());
             // JSONArray productsArray = jsonResponse.getJSONArray("products");
             // Chuyển đổi chuỗi JSON thành một đối tượng JSONObject
-            System.out.println(response);
             JSONObject jsonResponse = new JSONObject(response.toString());
 
             // Lấy mảng "Orders" từ đối tượng JSONObject
@@ -475,18 +494,50 @@ public class DashBoardController implements Initializable {
                 JSONObject orderObject = ordersArray.getJSONObject(i);
                 
                 // Lấy thông tin của mỗi đơn hàng từ object JSON và tạo đối tượng Order tương ứng
-                Long id = orderObject.getLong("id");
+                int id = orderObject.getInt("id");
                 String timeCreated = orderObject.getString("timeCreated");
                 String orderStatus = orderObject.getString("orderStatus");
-
+                Double orderTotalPrice = getTotalPrice(id);
                 // Tạo đối tượng Order từ dữ liệu JSON và thêm vào danh sách orders
-                Order order = new Order(id, timeCreated, orderStatus);
+                Order order = new Order(id, timeCreated, orderStatus, orderTotalPrice);
                 orders.add(order);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return orders;
+    }
+
+    private static double getTotalPrice(int orderId) {
+        double totalPrice = 0;
+
+        try {
+            URL url = new URL(API_URL_ORDERITEM + "/" + orderId);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            StringBuilder response = new StringBuilder();
+            String inputLine;
+
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+
+            JSONArray orderItemsArray = new JSONArray(response.toString());
+
+            for (int i = 0; i < orderItemsArray.length(); i++) {
+                JSONObject orderItemObject = orderItemsArray.getJSONObject(i);
+                int quantity = orderItemObject.getInt("quantity");
+                double singlePrice = orderItemObject.getDouble("singlePrice");
+                totalPrice += quantity * singlePrice;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return totalPrice;
     }
 
     public void createOrder() {
@@ -654,7 +705,6 @@ public class DashBoardController implements Initializable {
         int col = 0;
         HistoryGridPane.getRowConstraints().clear();
         HistoryGridPane.getColumnConstraints().clear();
-
         for (int q = 0; q < orders.size(); q++) {
             try {
                 FXMLLoader load = new FXMLLoader();
@@ -662,7 +712,6 @@ public class DashBoardController implements Initializable {
                 AnchorPane pane = load.load();
                 HistoryCardController cardC = load.getController();
                 cardC.setData(orders.get(q));
-
                 if (col == 1) {
                     col = 0;
                     row += 1;
@@ -778,10 +827,17 @@ public class DashBoardController implements Initializable {
         cart.clear();
     }
 
+    public void addOrderToOrders(Order order) {
+        this.orders.add(order);
+    }
+
     public void orderClick() {
         createOrder();
         cart.clear();
         CartGridPane.getChildren().clear();
+        orders.clear();
+        HistoryGridPane.getChildren().clear();
+        displayOrders();
         ordernotiText.setFill(Color.web("#88ff4f"));
         timeNotiAppear.setCycleCount(Animation.INDEFINITE);
         timeNotiAppear.play();
@@ -806,8 +862,10 @@ public class DashBoardController implements Initializable {
 
         // giảm thời gian đi một giây
         minutesRemains--;
-        if (minutesRemains == 0 && hoursRemains == 0) {
-            logout();
+        if (minutesRemains <= 0) {
+            if(hoursRemains == 0) {
+                loadOutOfTimeModal();
+            }
         }
 
         if (minutesRemains == -1) {

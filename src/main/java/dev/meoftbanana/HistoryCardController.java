@@ -3,6 +3,7 @@ package dev.meoftbanana;
 import dev.meoftbanana.model.Order;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class HistoryCardController {
@@ -10,7 +11,7 @@ public class HistoryCardController {
     private Label orderId;
 
     @FXML
-    private Label orderStatus;
+    private Text orderStatus;
 
     @FXML
     private Label timeCreated;
@@ -31,8 +32,12 @@ public class HistoryCardController {
         this.order = order;
         this.orderId.setText("#" + order.getOrderId());
         this.orderStatus.setText(order.getOrderStatus());
+        //orderStatus.setTextFill(Color.web("#189149"));
+        if(order.getOrderStatus().equals("PAID")) {
+            this.orderStatus.setFill(Color.web("#189149"));
+        }
         this.timeCreated.setText(order.getTimeCreated());
-        this.totalPriceText.setText("10000");
+        this.totalPriceText.setText(order.getTotal().toString() + "VND");
 
     }
 
