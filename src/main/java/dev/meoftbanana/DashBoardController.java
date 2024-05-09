@@ -80,6 +80,9 @@ public class DashBoardController implements Initializable {
     static BooleanProperty needToLoad = new SimpleBooleanProperty(false);
     Timeline timeUsed = new Timeline(
             new KeyFrame(Duration.seconds(60), event -> updateTimeUsed()));
+
+    Timeline timeUpdateHistory = new Timeline(
+            new KeyFrame(Duration.seconds(20), event -> updateTimeHistory()));
     Timeline timeRemains=new Timeline(new KeyFrame(Duration.seconds(60),event->{try{updateTimeRemains();}catch(
     IOException e)
     {
@@ -231,6 +234,8 @@ public class DashBoardController implements Initializable {
         timeUsed.play();
         timeRemains.setCycleCount(Animation.INDEFINITE);
         timeRemains.play();
+        timeUpdateHistory.setCycleCount(Animation.INDEFINITE);
+        timeUpdateHistory.play();
 
         // TODO Auto-generated method stub
         showSelectedPane(CartPane);
@@ -468,7 +473,10 @@ public class DashBoardController implements Initializable {
 
     private ObservableList getOrderList() {
         ObservableList<Order> orders = FXCollections.observableArrayList();
-
+        if(User.userId == null) {
+            System.out.println("user is not logging in");
+            return orders;
+        }
         try {
             URL url = new URL(API_URL_USERORDER+ "/" + User.userId);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -496,10 +504,12 @@ public class DashBoardController implements Initializable {
                 // Lấy thông tin của mỗi đơn hàng từ object JSON và tạo đối tượng Order tương ứng
                 int id = orderObject.getInt("id");
                 String timeCreated = orderObject.getString("timeCreated");
+                //System.out.println(timeCreated);
+                String timeCreatedFormatted = TimeHandle.convertTimeString(timeCreated);
                 String orderStatus = orderObject.getString("orderStatus");
                 Double orderTotalPrice = getTotalPrice(id);
                 // Tạo đối tượng Order từ dữ liệu JSON và thêm vào danh sách orders
-                Order order = new Order(id, timeCreated, orderStatus, orderTotalPrice);
+                Order order = new Order(id, timeCreatedFormatted, orderStatus, orderTotalPrice);
                 orders.add(order);
             }
         } catch (Exception e) {
@@ -880,5 +890,10 @@ public class DashBoardController implements Initializable {
     private void updateTimeNotiAppear(){
         ordernotiText.setFill(Color.web("#FF5757"));
         timeNotiAppear.stop();
+    }
+    private void updateTimeHistory() {
+        orders.clear();
+        HistoryGridPane.getChildren().clear();
+        displayOrders();
     }
 }

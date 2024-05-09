@@ -55,10 +55,7 @@ public class CardProductController implements Initializable {
         this.addToCartButton.setDisable(isOutOfStock);
         productName.setText(product.getName());
         price.setText(Double.toString(product.getPrice()) + "VND");
-        File imageFile = new File("image/" + product.getProductImageLink());
-        String path = imageFile.toURI().toString();
         Image img = new Image(getClass().getResourceAsStream("image/" + product.getProductImageLink()));
-
         this.productImage.setImage(img);
         //this.productImage = new ImageView(image);
     }
