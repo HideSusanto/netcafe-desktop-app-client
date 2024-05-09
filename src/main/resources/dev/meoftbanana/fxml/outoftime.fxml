@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="135.0" prefWidth="220.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text fill="#e41818" layoutX="59.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BẠN ĐÃ HẾT GIỜ!" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text layoutX="24.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vui lòng nạp thêm để chơi tiếp">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Text>
+      <Button fx:id="buttonLogout" layoutX="78.0" layoutY="96.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" style="-fx-background-color: 'white';" text="OK" />
+   </children>
+</AnchorPane>

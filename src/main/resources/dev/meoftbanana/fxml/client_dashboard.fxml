@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1440.0" style="-fx-background-color: &quot;#000&quot;;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.meoftbanana.DashBoardController">
+<Pane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1440.0" style="-fx-background-color: &quot;#000&quot;;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.meoftbanana.DashBoardController">
    <children>
       <Pane layoutX="9.0" layoutY="-5.0" prefHeight="75.0" prefWidth="1090.0" style="-fx-background-color: fcfcfc; -fx-background-radius: 20;">
          <children>
@@ -22,7 +22,7 @@
                   <Image url="@../assets/img/logo2.png" />
                </image>
             </ImageView>
-            <Button layoutX="831.0" layoutY="19.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="113.0" style="-fx-background-radius: 10; -fx-background-color: #349EFF;" stylesheets="@../css/style.css" text="Turorial" />
+            <Button fx:id="testButton" layoutX="831.0" layoutY="19.0" mnemonicParsing="false" onAction="#loadOutOfTimeModal" prefHeight="31.0" prefWidth="113.0" style="-fx-background-radius: 10; -fx-background-color: #349EFF;" stylesheets="@../css/style.css" text="Turorial" />
             <Button layoutX="958.0" layoutY="19.0" mnemonicParsing="false" onAction="#logoutClick" prefHeight="31.0" prefWidth="113.0" style="-fx-background-color: #E83D3D; -fx-background-radius: 10;" text="Logout" />
          </children>
       </Pane>
