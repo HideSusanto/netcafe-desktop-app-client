@@ -86,7 +86,7 @@ public class LoginController {
             String password = passwordTextInput.getText();
 
             // Tạo URL và kết nối
-            URL url = new URL("http://localhost:8080/api/auth/loginwithuserinfo/1");
+            URL url = new URL("http://localhost:8080/api/auth/loginwithuserinfo/" + Computer.computerId);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             // Cấu hình yêu cầu
