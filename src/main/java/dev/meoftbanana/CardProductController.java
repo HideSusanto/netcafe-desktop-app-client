@@ -55,8 +55,16 @@ public class CardProductController implements Initializable {
         this.addToCartButton.setDisable(isOutOfStock);
         productName.setText(product.getName());
         price.setText(Double.toString(product.getPrice()) + "VND");
-        Image img = new Image(getClass().getResourceAsStream("image/" + product.getProductImageLink()));
-        this.productImage.setImage(img);
+        try {
+            Image img = new Image(getClass().getResourceAsStream("image/" + product.getProductImageLink()));
+            this.productImage.setImage(img);
+        }
+        catch (Exception e) {
+            Image img = new Image(getClass().getResourceAsStream("image/foods.jpg"));
+            this.productImage.setImage(img);
+        }
+
+        
         //this.productImage = new ImageView(image);
     }
 

@@ -846,6 +846,14 @@ public class DashBoardController implements Initializable {
         cart.clear();
         CartGridPane.getChildren().clear();
         orders.clear();
+        foods.clear();
+        beverages.clear();
+        chargings.clear();
+        others.clear();
+        displayProducts(foods, 1, FoodGridPane);
+        displayProducts(beverages, 2, BeverageGridPane);
+        displayProducts(chargings, 3, ChargingGridPane);
+        displayProducts(others, 4, OthersGridPane);
         HistoryGridPane.getChildren().clear();
         displayOrders();
         ordernotiText.setFill(Color.web("#88ff4f"));
